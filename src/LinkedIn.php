@@ -7,29 +7,35 @@ use Exception;
 
 class LinkedIn extends HttpRequest
 {
-    public function __construct()
+
+    private  $SEARCH_PEOPLE = "/search-people";
+
+    private $SEARCH_PROFILE_POSTS_BY_USERNAME = "/get-profile-posts";
+
+    private $VERICATION_DATA = "/about-this-profile";
+
+
+    public function __construct(string  $api_key = config('app.linkedin.x-rapidapi-key') )
     {
         $this->setApiUrl(config('app.snapchat.domain_url'));
         $this->additionalHeader = [
             'x-rapidapi-host' => config('app.linkedin.x-rapidapi-host', ''),
-            'x-rapidapi-key' => config('app.linkedin.x-rapidapi-key')
+            'x-rapidapi-key' => $api_key
         ];
         $this->setRequestOptions();
     }
 
     /**
-     * @param string $firstname
-     * @param string $lastname
-     * @param string $geo
-     * @param string $companyName
-     * @param string $keywordSchool
-     * @param string $keywords
+     * @param mixed $params = $linkedIn =  ["firstname"=>"", "lastname" =>"", "geo"=>"" , "company" => '', "keywordSchool" => '', "keywords" => '',
+     * "start"=>"", "schoolId"=>"", "keywordSchool"=>"", "keywordTitle"=>"", "company"=>"" ]
      * @return mixed $response
      */
-    public function searchUsers($firstname, $lastname, $geo, $company = '', $keywordSchool = '', $keywords = '')
+    public function searchUsers($params = [])
     {
         try {
-            return $this->setHttpResponse("/search-people?keywords={$keywords}&firstName={$firstname}&lastName={$lastname}&company={$company}&geo={$geo}", 'GET', [])->getResponse();
+
+           return $this->setHttpResponse($this->SEARCH_PEOPLE, 'GET', [], $params)->getResponse();
+
         } catch (Exception $e) {
             throw new Exception("Error Processing Request" . $e->getMessage());
         }
@@ -39,12 +45,13 @@ class LinkedIn extends HttpRequest
     /**
      * @param string $username
      * @param string poatedAt (2024-01-01 00:00)
-     * @param strng $start -> use this param to get posts in next results page: 0 for page 1, 50 for page 2 100 for page 3, etc
+     * @param string $start -> use this param to get posts in next results page: 0 for page 1, 50 for page 2 100 for page 3, etc
+     * @param $query contains keys like [ username, start paginationToken postedAt ]
      */
-    public function searchUserProfileProfilePost($username,  $poatedAt = '')
+    public function searchProfilePostByUsername($query)
     {
         try {
-            return $this->setHttpResponse("/get-profile-posts?username={$username}&postedAt={$poatedAt}", 'GET', [])->getResponse();
+            return $this->setHttpResponse($this->SEARCH_PROFILE_POSTS_BY_USERNAME, 'GET', [], $query)->getResponse();
         } catch (Exception $e) {
             throw new Exception("Error Processing Request" . $e->getMessage());
         }
@@ -55,24 +62,60 @@ class LinkedIn extends HttpRequest
      * @param string $username
      * @return mixed
      */
-    public function searchUserProfile($username)
+    public function searchUserProfileByUsername($username)
     {
         try {
-            return $this->setHttpResponse("/?username={$username}", 'GET', [])->getResponse();
+              $this->setHttpResponse("/?username={$username}", 'GET', []);
+            
+             $data = $this->response->getBody();
+         
+             $data = json_decode($data, true);
+
+             $verificationData = $this->searchUserVerificationDataByUsername($username);
+
+             if(isset($data)){
+
+              $data["verificationData"] = $verificationData;
+
+             } 
+
+             return $data;
+             
+
         } catch (Exception $e) {
             throw new Exception("Error Processing Request" . $e->getMessage());
         }
     }
 
+
     /**
      * @param string $username
      * @return mixed
+     * 
+     * This endpoint provides information that needs to come with the profile information 
+     * so included  in searchUserByProfile implementation
      */
-    public function searchAboutUserProfile($username)
+    private function searchUserVerificationDataByUsername($username)
     {
         try {
-            return $this->setHttpResponse("/?about-this-profile={$username}", 'GET', [])->getResponse();
+
+           $query = ["username" => $username];
+
+           $object =  $this->setHttpResponse($this->VERICATION_DATA, 'GET', [], $query);
+           $data = json_decode($object->response->getBody(), true);
+           $validationData = null;
+
+           if (isset($data['data'])) {
+
+            $validationData = $data['data'];
+           }
+          
+
+           return $validationData;
+
+
         } catch (Exception $e) {
+
             throw new Exception("Error Processing Request" . $e->getMessage());
         }
     }

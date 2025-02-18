@@ -14,12 +14,12 @@ class Facebook extends HttpRequest
      * Sets the API URL using the domain URL from the Facebook Scraper configuration
      * and initializes additional headers.
      */
-    public function __construct()
+    public function __construct(string $api_key =  config('app.facebook.x-rapidapi-key', "") )
     {
-        $this->setApiUrl(config('facebook.api_url'));
+        $this->setApiUrl(config('app.facebook.api_url'));
         $this->additionalHeader = [
-            'x-rapidapi-host' => config('facebook.x-rapidapi-host', ''),
-            'x-rapidapi-key' => config('facebook.x-rapidapi-key')
+            'x-rapidapi-host' => config('app.facebook.x-rapidapi-host', ""),
+            'x-rapidapi-key' => $api_key
         ];
         $this->setRequestOptions();
     }
@@ -32,7 +32,13 @@ class Facebook extends HttpRequest
     /**
      * Search for posts containing the given query.
      *
-     * @param string $query The search query (e.g., 'facebook').
+     * @param array $query =  (list of request params) {
+     *  query =>
+     *  location_uid =>
+     * start_date => format(2024-11-14)
+     * end_date=> 2025-02-14'
+     * 
+     * } The search query (e.g., 'facebook').
      *
      * @return array|null The API response, or null if the request fails.
      *
@@ -41,14 +47,11 @@ class Facebook extends HttpRequest
     public function searchPosts($query)
     {
         try {
-            $response = $this->client->request('GET', 'https://facebook-scraper3.p.rapidapi.com/search/posts', [
-                'query' => ['query' => $query], // The query parameter (search term)
-                'headers' => [
-                    'x-rapidapi-host' => 'app.facebook-scraper3.p.rapidapi.com',
-                    'x-rapidapi-key' => 'a6f480bfa8msh5da5b8344d4c919p1a03dfjsn11c4d160c1cf', // Your RapidAPI key
-                ],
-            ]);
-            return json_decode($response->getBody()->getContents(), true);
+
+
+
+         return   $response = $this->setHttpResponse(config("app.facebook.user_search_post"), "GET", [], $query)->getResponse();
+      
         } catch (Exception $e) {
             throw new Exception("Error Processing Request" . $e->getMessage());
         }

@@ -14,12 +14,12 @@ class Instagram extends HttpRequest
      * Sets the API URL using the domain URL from the Instagram configuration and
      * initializes additional headers.
      */
-    public function __construct()
+    public function __construct(string $api_key = config('app.instagram.x-rapidapi-key')  )
     {
         $this->setApiUrl(config('app.instagram.api_url'));
         $this->additionalHeader = [
             'x-rapidapi-host' => config('app.instagram.x-rapidapi-host', ''),
-            'x-rapidapi-key' => config('app.instagram.x-rapidapi-key')
+            'x-rapidapi-key' => $api_key
         ];
 
         $this->setRequestOptions();

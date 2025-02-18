@@ -13,9 +13,9 @@ $shortCode = 'Ckv3mrWq7W';
 $hashtag = 'catsofinstagram';
 $query = 'lofi';
 $location = 'seoul';
-$user = 'kanyewest';
+$user = 'corneliusbisi';
 
-$response = $instagram->searchUserByQuery($user);
+$response = $instagram->getUserByUsername($user);
 
 // test id 
 // 71573758753

@@ -8,12 +8,12 @@ use Exception;
 class WhatsApp extends HttpRequest
 {
 
-  public function  __construct()
+  public function  __construct( string $api_key = config('app.whatsApp.x-rapidapi-key') )
   {
     $this->setApiUrl(config('app.whatsApp.api_url'));
     $this->additionalHeader = [
       'x-rapidapi-host' => config('app.whatsApp.x-rapidapi-host', ''),
-      'x-rapidapi-key'  => config('app.whatsApp.x-rapidapi-key')
+      'x-rapidapi-key'  => $api_key
     ];
     $this->setRequestOptions();
   }

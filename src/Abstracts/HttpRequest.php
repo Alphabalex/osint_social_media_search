@@ -13,6 +13,8 @@ abstract class HttpRequest
     protected $response;
     protected array $additionalHeader = [];
 
+    private $requestOptions = [];
+
     protected function setApiUrl($apiBaseUrl): void
     {
         $this->baseUrl = $apiBaseUrl;
@@ -38,22 +40,46 @@ abstract class HttpRequest
         );
     }
 
-    protected function setHttpResponse($relativeUrl, $method, $body = [])
+    protected function setHttpResponse($relativeUrl, $method, $body = [], $params=[])
     {
+
+        try{
         if (is_null($method)) {
             throw new Exception("Request method must be specified");
         }
 
+        if ($method === 'GET' && !empty($params)) {
+            $this->requestOptions['query'] = $params;
+        }
+        
+        // Add JSON body for non-GET requests
+        if ($method !== 'GET' && !empty($body)) {
+            $this->requestOptions['body'] = json_encode(  $body);
+        }
+        
         $this->response = $this->client->{strtolower($method)}(
-            $this->baseUrl . $relativeUrl,
-            ["body" => json_encode($body)]
+            $this->baseUrl .  (string)$relativeUrl,
+            $this->requestOptions
         );
+        
+
+
         return $this;
+
+       }catch (Exception $e){
+
+        throw new Exception($e->getMessage(), $e->getCode());
+       }
     }
+
+
 
     protected function getResponse()
     {
+           
+        
         $data = json_decode($this->response->getBody(), true);
+
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new Exception("Failed to decode JSON: " . json_last_error_msg());
         }
