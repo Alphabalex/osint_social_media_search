@@ -2,7 +2,7 @@
 if (!function_exists('config')) {
 
 
-    function config($key = null, $default = null)
+    function getConfig($key = null, $default = null)
     {
         static $loadedConfigs = [];
 

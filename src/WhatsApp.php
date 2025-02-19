@@ -8,11 +8,11 @@ use Exception;
 class WhatsApp extends HttpRequest
 {
 
-  public function  __construct( string $api_key = config('app.whatsApp.x-rapidapi-key') )
+  public function  __construct( string $api_key = getConfig('app.whatsApp.x-rapidapi-key') )
   {
-    $this->setApiUrl(config('app.whatsApp.api_url'));
+    $this->setApiUrl(getConfig('app.whatsApp.api_url'));
     $this->additionalHeader = [
-      'x-rapidapi-host' => config('app.whatsApp.x-rapidapi-host', ''),
+      'x-rapidapi-host' => getConfig('app.whatsApp.x-rapidapi-host', ''),
       'x-rapidapi-key'  => $api_key
     ];
     $this->setRequestOptions();
@@ -28,7 +28,7 @@ class WhatsApp extends HttpRequest
    *******/
   public function getUserProfileByNumber($number)
   {
-    $url = config('app.WhatsApp.user_profile_endpoint') . $number;
+    $url = getConfig('app.WhatsApp.user_profile_endpoint') . $number;
     try {
       return $this->setHttpResponse($url, 'GET', [])->getResponse();
     } catch (Exception $e) {
@@ -49,7 +49,7 @@ class WhatsApp extends HttpRequest
    */
   public function downloadProfilePicture($number)
   {
-    $url = config('app.whatsApp.user_profile_picture_endpoint') . $number;
+    $url = getConfig('app.whatsApp.user_profile_picture_endpoint') . $number;
     try {
       return $this->setHttpResponse($url, 'GET', [])->getResponse();
     } catch (Exception $e) {

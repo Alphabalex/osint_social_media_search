@@ -16,10 +16,10 @@ class Instagram extends HttpRequest
      */
     public function __construct(?string $api_key =  null )
     {
-        $this->setApiUrl(config('app.instagram.api_url'));
+        $this->setApiUrl(getConfig('app.instagram.api_url'));
         $this->additionalHeader = [
-            'x-rapidapi-host' => config('app.instagram.x-rapidapi-host', ''),
-            'x-rapidapi-key' => $api_key ? $api_key : config('app.instagram.x-rapidapi-key'),
+            'x-rapidapi-host' => getConfig('app.instagram.x-rapidapi-host', ''),
+            'x-rapidapi-key' => $api_key ? $api_key : getConfig('app.instagram.x-rapidapi-key'),
         ];
 
         $this->setRequestOptions();
@@ -39,7 +39,7 @@ class Instagram extends HttpRequest
 
 
         try {
-            $result = $this->setHttpResponse(config('app.instagram.user_info_endpoint'), 'POST', ["username" => $username])->getResponse();
+            $result = $this->setHttpResponse(getConfig('app.instagram.user_info_endpoint'), 'POST', ["username" => $username])->getResponse();
             return $result;
         } catch (Exception $e) {
             throw new Exception("Error Processing Request" . $e->getMessage());
@@ -56,7 +56,7 @@ class Instagram extends HttpRequest
     public function searchUserByQuery($query)
     {
         try {
-            $result = $this->setHttpResponse(config("app.instagram.user_search_endpoint"), 'POST', ["query" => $query])->getResponse();
+            $result = $this->setHttpResponse(getConfig("app.instagram.user_search_endpoint"), 'POST', ["query" => $query])->getResponse();
             return $result;
         } catch (Exception $e) {
             throw new Exception("Error Processing Request" . $e->getMessage());

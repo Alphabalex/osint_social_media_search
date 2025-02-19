@@ -17,9 +17,9 @@ class Twitter extends HttpRequest
 
     public function __construct(?string $api_key = null )
     {
-        $this->setApiUrl(config('app.twitter.api_url', "https://twitter-api45.p.rapidapi.com"));
-        $this->additionalHeader = ['x-rapidapi-host' => config('app.twitter.x-rapidapi-host'), 
-        'x-rapidapi-key' => $api_key ? $api_key : config('app.twitter.x-rapidapi-key') ];
+        $this->setApiUrl(getConfig('app.twitter.api_url', "https://twitter-api45.p.rapidapi.com"));
+        $this->additionalHeader = ['x-rapidapi-host' => getConfig('app.twitter.x-rapidapi-host'), 
+        'x-rapidapi-key' => $api_key ? $api_key : getConfig('app.twitter.x-rapidapi-key') ];
         $this->setRequestOptions();
     }
 

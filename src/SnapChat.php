@@ -11,10 +11,10 @@ class SnapChat extends HttpRequest
 
     public function __construct( ?string $api_key = null  )
     {
-        $this->setApiUrl(config('app.snapchat.domain_url'));
+        $this->setApiUrl(getConfig('app.snapchat.domain_url'));
         $this->additionalHeader = [
-            'x-rapidapi-host' => config('app.snapchat.x-rapidapi-host', ''),
-            'x-rapidapi-key' => $api_key ? $api_key : config('app.snapchat.x-rapidapi-key'),
+            'x-rapidapi-host' => getConfig('app.snapchat.x-rapidapi-host', ''),
+            'x-rapidapi-key' => $api_key ? $api_key : getConfig('app.snapchat.x-rapidapi-key'),
         ];
         $this->setRequestOptions();
     }

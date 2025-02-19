@@ -16,10 +16,10 @@ class Facebook extends HttpRequest
      */
     public function __construct( ?string $api_key =  null )
     {
-        $this->setApiUrl(config('app.facebook.api_url'));
+        $this->setApiUrl(getConfig('app.facebook.api_url'));
         $this->additionalHeader = [
-            'x-rapidapi-host' => config('app.facebook.x-rapidapi-host', ""),
-            'x-rapidapi-key' => $api_key ? $api_key : config('app.facebook.x-rapidapi-key', ""),
+            'x-rapidapi-host' => getConfig('app.facebook.x-rapidapi-host', ""),
+            'x-rapidapi-key' => $api_key ? $api_key : getConfig('app.facebook.x-rapidapi-key', ""),
         ];
         $this->setRequestOptions();
     }
@@ -50,7 +50,7 @@ class Facebook extends HttpRequest
 
 
 
-         return   $response = $this->setHttpResponse(config("app.facebook.user_search_post"), "GET", [], $query)->getResponse();
+         return   $response = $this->setHttpResponse(getConfig("app.facebook.user_search_post"), "GET", [], $query)->getResponse();
       
         } catch (Exception $e) {
             throw new Exception("Error Processing Request" . $e->getMessage());

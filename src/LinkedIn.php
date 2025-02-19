@@ -17,10 +17,10 @@ class LinkedIn extends HttpRequest
 
     public function __construct(?string  $api_key = null )
     {
-        $this->setApiUrl(config('app.snapchat.domain_url'));
+        $this->setApiUrl(getConfig('app.snapchat.domain_url'));
         $this->additionalHeader = [
-            'x-rapidapi-host' => config('app.linkedin.x-rapidapi-host', ''),
-            'x-rapidapi-key' => $api_key ? $api_key : config('app.linkedin.x-rapidapi-key'),
+            'x-rapidapi-host' => getConfig('app.linkedin.x-rapidapi-host', ''),
+            'x-rapidapi-key' => $api_key ? $api_key : getConfig('app.linkedin.x-rapidapi-key'),
         ];
         $this->setRequestOptions();
     }
