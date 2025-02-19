@@ -15,12 +15,12 @@ class LinkedIn extends HttpRequest
     private $VERICATION_DATA = "/about-this-profile";
 
 
-    public function __construct(string  $api_key = config('app.linkedin.x-rapidapi-key') )
+    public function __construct(?string  $api_key = null )
     {
         $this->setApiUrl(config('app.snapchat.domain_url'));
         $this->additionalHeader = [
             'x-rapidapi-host' => config('app.linkedin.x-rapidapi-host', ''),
-            'x-rapidapi-key' => $api_key
+            'x-rapidapi-key' => $api_key ? $api_key : config('app.linkedin.x-rapidapi-key'),
         ];
         $this->setRequestOptions();
     }

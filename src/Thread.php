@@ -18,11 +18,13 @@ class Thread extends HttpRequest
 
     private $POST_SEARCH = "posts/search";
 
+   
 
-    public function __construct(string $api_key =  config('app.thread.x-rapidapi-key') )
+
+    public function __construct(?string $api_key = null  )
     {
         $this->setApiUrl(config('app.thread.domain_url'));
-        $this->additionalHeader = ['x-rapidapi-host' => config('app.thread.x-rapidapi-host'), 'x-rapidapi-key' => $api_key];
+        $this->additionalHeader = ['x-rapidapi-host' => config('app.thread.x-rapidapi-host'), 'x-rapidapi-key' => $api_key ? $api_key :   config('app.thread.x-rapidapi-key')  ];
         $this->setRequestOptions();
     }
 

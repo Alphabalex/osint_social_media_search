@@ -14,12 +14,12 @@ class Facebook extends HttpRequest
      * Sets the API URL using the domain URL from the Facebook Scraper configuration
      * and initializes additional headers.
      */
-    public function __construct(string $api_key =  config('app.facebook.x-rapidapi-key', "") )
+    public function __construct( ?string $api_key =  null )
     {
         $this->setApiUrl(config('app.facebook.api_url'));
         $this->additionalHeader = [
             'x-rapidapi-host' => config('app.facebook.x-rapidapi-host', ""),
-            'x-rapidapi-key' => $api_key
+            'x-rapidapi-key' => $api_key ? $api_key : config('app.facebook.x-rapidapi-key', ""),
         ];
         $this->setRequestOptions();
     }
