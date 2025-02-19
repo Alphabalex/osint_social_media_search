@@ -10,8 +10,8 @@ class Tictok extends HttpRequest
 
     public function __construct()
     {
-        $this->setApiUrl(getConfig('app.tictok.domain_url'));
-        $this->additionalHeader = ['x-rapidapi-host' => getConfig('app.tictok.x-rapidapi-host'), 'x-rapidapi-key' => getConfig('app.tictok.x-rapidapi-key')];
+        $this->setApiUrl(getConfigSocial('app.tictok.domain_url'));
+        $this->additionalHeader = ['x-rapidapi-host' => getConfigSocial('app.tictok.x-rapidapi-host'), 'x-rapidapi-key' => getConfigSocial('app.tictok.x-rapidapi-key')];
         $this->setRequestOptions();
     }
 

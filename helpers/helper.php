@@ -1,8 +1,8 @@
 <?php
-if (!function_exists('config')) {
+if (!function_exists('getConfigSocial')) {
 
 
-    function getConfig($key = null, $default = null)
+    function getConfigSocial($key = null, $default = null)
     {
         static $loadedConfigs = [];
 
