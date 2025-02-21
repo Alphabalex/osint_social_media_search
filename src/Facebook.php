@@ -53,7 +53,7 @@ class Facebook extends HttpRequest
          return   $response = $this->setHttpResponse(getConfigSocial("app.facebook.user_search_post"), "GET", [], $query)->getResponse();
       
         } catch (Exception $e) {
-            throw new Exception("Error Processing Request" . $e->getMessage());
+            throw $e;
         }
     }
 }

@@ -47,7 +47,7 @@ class Twitter extends HttpRequest
 
           }catch(Exception $e){
 
-            throw new Exception("Errror communicating with {$this->baseUrl}{$this->SEARCH_URI}: " . $e->getMessage());
+            throw $e;
 
           }
 
@@ -69,7 +69,7 @@ class Twitter extends HttpRequest
 
        }catch(Exception $e){
        
-        throw new Exception("Errror communicating with {$this->baseUrl}{$this->SEARCH_BY_SCREENNAME}: " . $e->getMessage());
+        throw $e;
        }
 
 
@@ -98,7 +98,7 @@ class Twitter extends HttpRequest
 
        }catch(Exception $e){
        
-        throw new Exception("Errror communicating with {$this->baseUrl}{$this->SEARCH_BY_SCREENNAME}: " . $e->getMessage());
+        throw $e;
        }
 
 

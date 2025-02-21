@@ -61,14 +61,17 @@ abstract class HttpRequest
             $this->baseUrl .  (string)$relativeUrl,
             $this->requestOptions
         );
-        
+
 
 
         return $this;
 
        }catch (Exception $e){
 
-        throw new Exception($e->getMessage(), $e->getCode());
+        
+
+        throw $e;
+
        }
     }
 

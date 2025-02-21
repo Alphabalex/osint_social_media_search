@@ -29,7 +29,7 @@ class SnapChat extends HttpRequest
         try {
             return $this->setHttpResponse("/getProfile?username={$username}", 'GET', [])->getResponse();
         } catch (Exception $e) {
-            throw new Exception("Error Processing Request" . $e->getMessage());
+            throw $e;
         }
     }
 
@@ -42,7 +42,7 @@ class SnapChat extends HttpRequest
         try {
             return $this->setHttpResponse("/getUserLenses?username={$username}", 'GET', [])->getResponse();
         } catch (Exception $e) {
-            throw new Exception("Error Processing Request" . $e->getMessage());
+            throw $e;
         }
     }
 
@@ -56,7 +56,7 @@ class SnapChat extends HttpRequest
         try {
             return $this->setHttpResponse("/getUserStory?username={$username}", 'GET', [])->getResponse();
         } catch (Exception $e) {
-            throw new Exception("Error Processing Request" . $e->getMessage());
+            throw $e;
         }
     }
 
@@ -69,7 +69,7 @@ class SnapChat extends HttpRequest
         try {
             return $this->setHttpResponse("/getUserSpotlightHighlights?username={$username}", 'GET', [])->getResponse();
         } catch (Exception $e) {
-            throw new Exception("Error Processing Request" . $e->getMessage());
+            throw $e;
         }
     }
 }

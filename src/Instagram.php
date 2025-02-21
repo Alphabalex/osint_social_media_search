@@ -42,7 +42,7 @@ class Instagram extends HttpRequest
             $result = $this->setHttpResponse(getConfigSocial('app.instagram.user_info_endpoint'), 'POST', ["username" => $username])->getResponse();
             return $result;
         } catch (Exception $e) {
-            throw new Exception("Error Processing Request" . $e->getMessage());
+            throw $e;
         }
     }
 
@@ -59,7 +59,7 @@ class Instagram extends HttpRequest
             $result = $this->setHttpResponse(getConfigSocial("app.instagram.user_search_endpoint"), 'POST', ["query" => $query])->getResponse();
             return $result;
         } catch (Exception $e) {
-            throw new Exception("Error Processing Request" . $e->getMessage());
+            throw $e;
         }
     }
 }

@@ -24,8 +24,6 @@ return [
         "user_info_endpoint" => "user/get_info",
         "user_info_by_id_endpoint" => 'user/get_info_by_id',
         "user_tags_endpoint" => 'user/get_tags',
-        "user_tags_endpoint" => 'user/get_tags',
-        "user_tags_endpoint" => 'user/get_tags',
         "user_followers_endpoint" => 'user/get_followers',
         "user_following_endpoint" => 'user/get_following',
         "user_stories_endpoint" => 'user/get_stories',
@@ -68,7 +66,7 @@ return [
         "access_secret_token" => "19IXm2P8ULwIP2eAyOV5HXzuutETN7gRLgcdFuQYE4mZF",
         "x-rapidapi-host" => "tiktok-api23.p.rapidapi.com",
         "x-rapidapi-key" => "99cfd4d7e2msh3494d671ee2889dp1fe566jsna33a3ffa1a1f",
-        "domain_url" => "https://tiktok-api23.p.rapidapi.com/api/user/",
+        "domain_url" => "https://tiktok-api23.p.rapidapi.com/api/",
     ],
 
 

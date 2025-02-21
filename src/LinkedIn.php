@@ -37,7 +37,7 @@ class LinkedIn extends HttpRequest
            return $this->setHttpResponse($this->SEARCH_PEOPLE, 'GET', [], $params)->getResponse();
 
         } catch (Exception $e) {
-            throw new Exception("Error Processing Request" . $e->getMessage());
+            throw $e;
         }
     }
 
@@ -53,7 +53,7 @@ class LinkedIn extends HttpRequest
         try {
             return $this->setHttpResponse($this->SEARCH_PROFILE_POSTS_BY_USERNAME, 'GET', [], $query)->getResponse();
         } catch (Exception $e) {
-            throw new Exception("Error Processing Request" . $e->getMessage());
+            throw $e;
         }
     }
 
@@ -83,7 +83,7 @@ class LinkedIn extends HttpRequest
              
 
         } catch (Exception $e) {
-            throw new Exception("Error Processing Request" . $e->getMessage());
+            throw $e;
         }
     }
 
@@ -116,7 +116,7 @@ class LinkedIn extends HttpRequest
 
         } catch (Exception $e) {
 
-            throw new Exception("Error Processing Request" . $e->getMessage());
+            throw $e;
         }
     }
 }

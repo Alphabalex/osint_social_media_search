@@ -8,12 +8,12 @@ use Exception;
 class WhatsApp extends HttpRequest
 {
 
-  public function  __construct( string $api_key = getConfigSocial('app.whatsApp.x-rapidapi-key') )
+  public function  __construct( ?string $api_key = null )
   {
     $this->setApiUrl(getConfigSocial('app.whatsApp.api_url'));
     $this->additionalHeader = [
       'x-rapidapi-host' => getConfigSocial('app.whatsApp.x-rapidapi-host', ''),
-      'x-rapidapi-key'  => $api_key
+      'x-rapidapi-key'  => $api_key ? $api_key : getConfigSocial('app.whatsApp.x-rapidapi-key'),
     ];
     $this->setRequestOptions();
   }
@@ -32,7 +32,7 @@ class WhatsApp extends HttpRequest
     try {
       return $this->setHttpResponse($url, 'GET', [])->getResponse();
     } catch (Exception $e) {
-      throw new Exception("Error Processing Request" . $e->getMessage());
+      throw $e;
     }
   }
 
@@ -53,7 +53,7 @@ class WhatsApp extends HttpRequest
     try {
       return $this->setHttpResponse($url, 'GET', [])->getResponse();
     } catch (Exception $e) {
-      throw new Exception("Error Processing Request" . $e->getMessage());
+      throw $e;
     }
   }
 }

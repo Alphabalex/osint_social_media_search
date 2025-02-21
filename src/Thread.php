@@ -40,7 +40,7 @@ class Thread extends HttpRequest
 
             return $this->setHttpResponse($this->USER_DETAIL, 'GET', [], $query)->getResponse();
         } catch (Exception $e) {
-            throw new Exception("Error Processing Request" . $e->getMessage());
+            throw $e;
         }
     }
 
@@ -58,7 +58,7 @@ class Thread extends HttpRequest
 
             return $this->setHttpResponse($this->SEARCH_USER, 'GET', [], $query)->getResponse();
         } catch (Exception $e) {
-            throw new Exception("Error Processing Request" . $e->getMessage());
+            throw $e;
         }
     }
 
@@ -76,7 +76,7 @@ class Thread extends HttpRequest
 
             return $this->setHttpResponse($this->POST_SEARCH, 'GET', [], $query)->getResponse();
         } catch (Exception $e) {
-            throw new Exception("Error Processing Request" . $e->getMessage());
+            throw $e;
         }
     }
 
@@ -93,7 +93,7 @@ class Thread extends HttpRequest
 
             return $this->setHttpResponse($this->USER_POST_BY_USERNAME, 'GET', [], $query)->getResponse();
         } catch (Exception $e) {
-            throw new Exception("Error Processing Request" . $e->getMessage());
+            throw $e;
         }
     }
 
@@ -112,7 +112,7 @@ class Thread extends HttpRequest
 
             return $this->setHttpResponse($this->USER_DETAILS_WITH_BIO, 'GET', [], $query)->getResponse();
         } catch (Exception $e) {
-            throw new Exception("Error Processing Request" . $e->getMessage());
+            throw $e;
         }
     }
 }
