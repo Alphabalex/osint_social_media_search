@@ -15,12 +15,14 @@ class Twitter extends HttpRequest
      private $SEARCH_USER_TIMELINE = "/timeline.php";
 
 
-    public function __construct(?string $api_key = null )
+    public function __construct(?string $api_key = null , $noOfRetries = 2, $sleepTime = 10)
     {
         $this->setApiUrl(getConfigSocial('app.twitter.api_url', "https://twitter-api45.p.rapidapi.com"));
         $this->additionalHeader = ['x-rapidapi-host' => getConfigSocial('app.twitter.x-rapidapi-host'), 
         'x-rapidapi-key' => $api_key ? $api_key : getConfigSocial('app.twitter.x-rapidapi-key') ];
         $this->setRequestOptions();
+        $this->noOfRetries = $noOfRetries;
+        $this->sleepTime = $sleepTime;
     }
 
     /**

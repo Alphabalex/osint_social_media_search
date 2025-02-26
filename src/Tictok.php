@@ -8,11 +8,13 @@ use Exception;
 class Tictok extends HttpRequest
 {
 
-    public function __construct(?string  $api_key = null )
+    public function __construct(?string  $api_key = null , $noOfRetries = 2, $sleepTime = 10 )
     {
         $this->setApiUrl(getConfigSocial('app.tictok.domain_url'));
         $this->additionalHeader = ['x-rapidapi-host' => getConfigSocial('app.tictok.x-rapidapi-host'), 'x-rapidapi-key' => $api_key ? $api_key : getConfigSocial("tictok.x-rapidapi-key")];
         $this->setRequestOptions();
+        $this->noOfRetries = $noOfRetries;
+        $this->sleepTime = $sleepTime;
     }
 
 

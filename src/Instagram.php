@@ -14,7 +14,7 @@ class Instagram extends HttpRequest
      * Sets the API URL using the domain URL from the Instagram configuration and
      * initializes additional headers.
      */
-    public function __construct(?string $api_key =  null )
+    public function __construct(?string $api_key =  null, $noOfRetries = 2, $sleepTime = 10)
     {
         $this->setApiUrl(getConfigSocial('app.instagram.api_url'));
         $this->additionalHeader = [
@@ -23,6 +23,8 @@ class Instagram extends HttpRequest
         ];
 
         $this->setRequestOptions();
+        $this->noOfRetries = $noOfRetries;
+        $this->sleepTime = $sleepTime;
     }
 
     /**

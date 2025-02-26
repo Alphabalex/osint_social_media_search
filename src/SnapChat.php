@@ -9,7 +9,7 @@ use Exception;
 class SnapChat extends HttpRequest
 {
 
-    public function __construct( ?string $api_key = null  )
+    public function __construct( ?string $api_key = null , $noOfRetries = 2, $sleepTime = 10 )
     {
         $this->setApiUrl(getConfigSocial('app.snapchat.domain_url'));
         $this->additionalHeader = [
@@ -17,6 +17,8 @@ class SnapChat extends HttpRequest
             'x-rapidapi-key' => $api_key ? $api_key : getConfigSocial('app.snapchat.x-rapidapi-key'),
         ];
         $this->setRequestOptions();
+        $this->noOfRetries = $noOfRetries;
+        $this->sleepTime = $sleepTime;
     }
 
 
